@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import ProblemsFilter from './ProblemsFilter';
 import ProblemsDisplay from './ProblemsDisplay';
 import useFetchGoogleSheet from './hook/fetch-google-sheet';
@@ -34,15 +34,21 @@ function parseProblemList(sheet) {
       .filter((tag) => tag.length != 0);
 
     problem.FilterTags = [
-      {key: `judge:${problem.Judge}`,
-      value: `judge:${problem.Judge}`,
-      text: `Judge: ${problem.Judge}`},
-      {key: `difficulty:${problem.Difficulty}`,
-      value: `difficulty:${problem.Difficulty}`,
-      text: `Difficulty: ${problem.Difficulty}`},
-      {key: `level:${problem.Level}`,
-      value: `level:${problem.Level}`,
-      text: `Level: ${problem.Level}`},
+      {
+        key: `judge:${problem.Judge}`,
+        value: `judge:${problem.Judge}`,
+        text: `Judge: ${problem.Judge}`
+      },
+      {
+        key: `difficulty:${problem.Difficulty}`,
+        value: `difficulty:${problem.Difficulty}`,
+        text: `Difficulty: ${problem.Difficulty}`
+      },
+      {
+        key: `level:${problem.Level}`,
+        value: `level:${problem.Level}`,
+        text: `Level: ${problem.Level}`
+      },
       ...problem.Tags.map((tag) => ({
         key: `tag:${tag}`,
         value: `tag:${tag}`,
@@ -55,19 +61,19 @@ function parseProblemList(sheet) {
 
   const unique = (x) => [...new Set(x)];
 
-  const tags = 
+  const tags =
     [...new Set(problems
       .map((problem) => problem.FilterTags.map((tag) => JSON.stringify(tag)))
       .reduce((arr, tags) => arr.concat(tags), []))]
       .sort()
       .map(JSON.parse);
 
-  return {problems, tags};
+  return { problems, tags };
 }
 
 function Recommender() {
-  const {problems: problemList, tags} = useFetchGoogleSheet(
-    "https://docs.google.com/a/google.com/spreadsheets/d/1audY4nLboFPrjYCdvo1ncORs5TUsZQjV3-0w_lKp_wY/gviz/tq?gid=1535630412&tq=select%20*",
+  const { problems: problemList, tags } = useFetchGoogleSheet(
+    "https://docs.google.com/a/google.com/spreadsheets/d/1mYZSziPP8-2a9lQeSjXm7FwRqilwgsL8MIHeER0BmGo/gviz/tq?tq=select%20*",
     {
       problems: [],
       tags: []
@@ -76,18 +82,18 @@ function Recommender() {
   );
 
   const [filters, setFilters] = useState([]);
-  const onFilterUpdate = (newFilters) => {setFilters(newFilters);};
+  const onFilterUpdate = (newFilters) => { setFilters(newFilters); };
 
-  const problems = problemList.filter((problem) => 
+  const problems = problemList.filter((problem) =>
     filters.every((filter) => problem.FilterTags.map((tag) => tag.value).includes(filter)));
 
   return (
     <>
-    {/* <pre>{JSON.stringify(tags,null,4)}</pre> */}
-      <ProblemsFilter 
-        onUpdate={onFilterUpdate} 
+      {/* <pre>{JSON.stringify(tags,null,4)}</pre> */}
+      <ProblemsFilter
+        onUpdate={onFilterUpdate}
         options={tags}
-        />
+      />
       <ProblemsDisplay problems={problems} />
     </>
   );

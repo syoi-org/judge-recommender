@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown } from 'semantic-ui-react';
+import { Button, Dropdown, Form, Icon } from 'semantic-ui-react';
 
 function ProblemsFilter({ onUpdate, options }) {
   const onChange = (event, { value }) => {
@@ -11,6 +11,7 @@ function ProblemsFilter({ onUpdate, options }) {
       <Dropdown
         placeholder="Filter"
         search
+        clearable
         options={options}
         fluid
         multiple
