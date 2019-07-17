@@ -1,5 +1,6 @@
 import React from 'react';
-import { List, Label, Table } from 'semantic-ui-react';
+import { List, Image, Label, Table } from 'semantic-ui-react';
+import JudgeIcon from './JudgeIcon';
 
 function Problem({ problem }) {
   const ref = React.createRef();
@@ -12,7 +13,9 @@ function Problem({ problem }) {
           cursor: "pointer"
         }}>
         <a href={problem.Link} ref={ref}>
-          {problem.Judge} {problem.ID} - {problem.Problem}
+          <JudgeIcon judge={problem.Judge} />
+          &nbsp;
+          {problem.Judge} - {problem.ID ? problem.ID + ' - ' : ''} {problem.Problem}
           <div>
             {problem.Tags.map((tag) => (
               <>
