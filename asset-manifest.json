@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/judge-recommender/static/js/main.c9e00595.chunk.js",
-    "main.js.map": "/judge-recommender/static/js/main.c9e00595.chunk.js.map",
+    "main.js": "/judge-recommender/static/js/main.74555e1f.chunk.js",
+    "main.js.map": "/judge-recommender/static/js/main.74555e1f.chunk.js.map",
     "runtime~main.js": "/judge-recommender/static/js/runtime~main.98973b44.js",
     "runtime~main.js.map": "/judge-recommender/static/js/runtime~main.98973b44.js.map",
-    "static/js/2.c6d382d2.chunk.js": "/judge-recommender/static/js/2.c6d382d2.chunk.js",
-    "static/js/2.c6d382d2.chunk.js.map": "/judge-recommender/static/js/2.c6d382d2.chunk.js.map",
+    "static/js/2.18acc3dd.chunk.js": "/judge-recommender/static/js/2.18acc3dd.chunk.js",
+    "static/js/2.18acc3dd.chunk.js.map": "/judge-recommender/static/js/2.18acc3dd.chunk.js.map",
     "index.html": "/judge-recommender/index.html",
-    "precache-manifest.4b9b58a9a5c76382e49de892adc6cbf2.js": "/judge-recommender/precache-manifest.4b9b58a9a5c76382e49de892adc6cbf2.js",
+    "precache-manifest.f5caa83d14d87ea5966b85a912a7f65b.js": "/judge-recommender/precache-manifest.f5caa83d14d87ea5966b85a912a7f65b.js",
     "service-worker.js": "/judge-recommender/service-worker.js",
     "static/media/aoj.ico": "/judge-recommender/static/media/aoj.12c76457.ico",
     "static/media/atcoder.png": "/judge-recommender/static/media/atcoder.fb263b01.png",
