@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ProblemsFilter from './ProblemsFilter';
 import ProblemsDisplay from './ProblemsDisplay';
 import useFetchGoogleSheet from './hook/fetch-google-sheet';
+import { Table } from 'semantic-ui-react';
 
 /**
  * Handle data fetching and the communication between display elements.
@@ -94,7 +95,14 @@ function Recommender() {
         onUpdate={onFilterUpdate}
         options={tags}
       />
-      <ProblemsDisplay problems={problems} />
+      <ProblemsDisplay problems={problems} before={
+        <Table.Row>
+          <Table.Cell>
+            Showing {problems.length} problem{problems.length != 1 && 's'} out
+            of {problemList.length} problem{problemList.length != 1 && 's'}.
+          </Table.Cell>
+        </Table.Row>
+      } />
     </>
   );
 }

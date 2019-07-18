@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Image, Label, Table } from 'semantic-ui-react';
+import { List, Image, Icon, Label, Table } from 'semantic-ui-react';
 import JudgeIcon from './JudgeIcon';
 
 function Problem({ problem }) {
@@ -17,11 +17,21 @@ function Problem({ problem }) {
           &nbsp;
           {problem.Judge} - {problem.ID ? problem.ID + ' - ' : ''} {problem.Problem}
           <div>
-            {problem.Tags.map((tag) => (
-              <>
-                <Label size="mini">{tag}</Label>
-              </>
-            ))}
+            <Label.Group color="black" size="mini" style={{ display: 'inline-block' }}>
+              <Label>
+                <Icon name="signal" size="small"></Icon>
+                {problem.Level}
+              </Label>
+              <Label>
+                <Icon name="star" size="small"></Icon>
+                {problem.Difficulty}
+              </Label>
+            </Label.Group>
+            <Label.Group size="mini" style={{ display: 'inline-block' }}>
+              {problem.Tags.map((tag) => (
+                <Label size="mini" color="brown" tag>{tag}</Label>
+              ))}
+            </Label.Group>
           </div>
         </a>
       </Table.Cell>
