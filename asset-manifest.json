@@ -1,19 +1,22 @@
 {
   "files": {
-    "main.js": "/judge-recommender/static/js/main.378af7ac.chunk.js",
-    "main.js.map": "/judge-recommender/static/js/main.378af7ac.chunk.js.map",
+    "main.js": "/judge-recommender/static/js/main.c9e00595.chunk.js",
+    "main.js.map": "/judge-recommender/static/js/main.c9e00595.chunk.js.map",
     "runtime~main.js": "/judge-recommender/static/js/runtime~main.98973b44.js",
     "runtime~main.js.map": "/judge-recommender/static/js/runtime~main.98973b44.js.map",
-    "static/js/2.d9c08c5e.chunk.js": "/judge-recommender/static/js/2.d9c08c5e.chunk.js",
-    "static/js/2.d9c08c5e.chunk.js.map": "/judge-recommender/static/js/2.d9c08c5e.chunk.js.map",
+    "static/js/2.c6d382d2.chunk.js": "/judge-recommender/static/js/2.c6d382d2.chunk.js",
+    "static/js/2.c6d382d2.chunk.js.map": "/judge-recommender/static/js/2.c6d382d2.chunk.js.map",
     "index.html": "/judge-recommender/index.html",
-    "precache-manifest.c48e84b4a09bf8850e6e79bca630cf78.js": "/judge-recommender/precache-manifest.c48e84b4a09bf8850e6e79bca630cf78.js",
+    "precache-manifest.4b9b58a9a5c76382e49de892adc6cbf2.js": "/judge-recommender/precache-manifest.4b9b58a9a5c76382e49de892adc6cbf2.js",
     "service-worker.js": "/judge-recommender/service-worker.js",
     "static/media/aoj.ico": "/judge-recommender/static/media/aoj.12c76457.ico",
     "static/media/atcoder.png": "/judge-recommender/static/media/atcoder.fb263b01.png",
     "static/media/cf.ico": "/judge-recommender/static/media/cf.501421ac.ico",
-    "static/media/csacademy.png": "/judge-recommender/static/media/csacademy.efc17391.png",
+    "static/media/csa.png": "/judge-recommender/static/media/csa.efc17391.png",
     "static/media/default.ico": "/judge-recommender/static/media/default.a94ec13c.ico",
-    "static/media/logo.png": "/judge-recommender/static/media/logo.2cd414b9.png"
+    "static/media/kattis.png": "/judge-recommender/static/media/kattis.0a3f6018.png",
+    "static/media/logo.png": "/judge-recommender/static/media/logo.2cd414b9.png",
+    "static/media/luogu.ico": "/judge-recommender/static/media/luogu.8a31d582.ico",
+    "static/media/syss.png": "/judge-recommender/static/media/syss.2cd414b9.png"
   }
 }
