@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/judge-recommender/static/js/main.36222b3b.chunk.js",
-    "main.js.map": "/judge-recommender/static/js/main.36222b3b.chunk.js.map",
+    "main.js": "/judge-recommender/static/js/main.c323aa7c.chunk.js",
+    "main.js.map": "/judge-recommender/static/js/main.c323aa7c.chunk.js.map",
     "runtime~main.js": "/judge-recommender/static/js/runtime~main.98973b44.js",
     "runtime~main.js.map": "/judge-recommender/static/js/runtime~main.98973b44.js.map",
     "static/js/2.842fd2aa.chunk.js": "/judge-recommender/static/js/2.842fd2aa.chunk.js",
     "static/js/2.842fd2aa.chunk.js.map": "/judge-recommender/static/js/2.842fd2aa.chunk.js.map",
     "index.html": "/judge-recommender/index.html",
-    "precache-manifest.6a18fbb8e3dd48ccd78d7933644ecb5d.js": "/judge-recommender/precache-manifest.6a18fbb8e3dd48ccd78d7933644ecb5d.js",
+    "precache-manifest.04ef25ecd1457f92bf36b4011179c7b3.js": "/judge-recommender/precache-manifest.04ef25ecd1457f92bf36b4011179c7b3.js",
     "service-worker.js": "/judge-recommender/service-worker.js",
     "static/media/aoj.ico": "/judge-recommender/static/media/aoj.12c76457.ico",
     "static/media/atcoder.png": "/judge-recommender/static/media/atcoder.fb263b01.png",
