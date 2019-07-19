@@ -8,59 +8,45 @@ import { Table } from 'semantic-ui-react';
  * Handle data fetching and the communication between display elements.
  */
 
-function parseProblemList(sheet) {
-  const cols = sheet.table.cols.map((col) => ({
-    label: col.label,
-    type: col.type,
-  }));
-
-  const sanitizeCell = (cell, cellType) => {
-    if (cell && cell.v) {
-      if (cellType === "number")
-        return cell.v;
-      return cell.v.trim();
-    } else {
-      if (cellType === "number")
-        return 0;
-      return "";
-    }
-  }
-
-  const problems = sheet.table.rows.map((row) => {
-    const problem = row.c.map((cell, id) => [cols[id].label, sanitizeCell(cell, cols[id].type)])
-      .reduce((o, [k, v]) => ({ ...o, [k]: v }), {});
-
+function parseProblemList({ cols, data }) {
+  const problems = data.map((problem) => {
     problem.Tags = problem.Tags.split(",")
       .map((tag) => tag.trim())
       .filter((tag) => tag.length != 0);
 
     problem.FilterTags = [
       {
+        type: 'judge',
+        source: problem.Judge,
         key: `judge:${problem.Judge}`,
         value: `judge:${problem.Judge}`,
         text: `Judge: ${problem.Judge}`
       },
       {
+        type: 'difficulty',
+        source: problem.Difficulty,
         key: `difficulty:${problem.Difficulty}`,
         value: `difficulty:${problem.Difficulty}`,
         text: `Difficulty: ${problem.Difficulty}`
       },
       {
+        type: 'level',
+        source: problem.Level,
         key: `level:${problem.Level}`,
         value: `level:${problem.Level}`,
         text: `Level: ${problem.Level}`
       },
       ...problem.Tags.map((tag) => ({
+        type: 'tag',
+        source: tag,
         key: `tag:${tag}`,
         value: `tag:${tag}`,
-        text: `Tag: ${tag}`
+        text: `Tag: ${tag}`,
       }))
     ];
 
     return problem;
   });
-
-  const unique = (x) => [...new Set(x)];
 
   const tags =
     [...new Set(problems

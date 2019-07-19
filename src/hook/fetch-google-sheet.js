@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as axios from 'axios';
+import sheetToEntry from '../util/sheet-to-entry';
 
 function useFetchGoogleSheet(url, initialState, postprocess) {
   const [data, setData] = useState(initialState);
@@ -19,7 +20,9 @@ function useFetchGoogleSheet(url, initialState, postprocess) {
     (async () => {
       const result = await axios(url);
       eval(result.data);
-      setData(postprocess(source));
+      console.log(source);
+      const entries = sheetToEntry(source);
+      setData(postprocess(entries));
     })();
   }, []);
 
