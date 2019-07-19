@@ -94,15 +94,11 @@ function ProblemsFilter({ onUpdate, options }) {
           </ul>
         </Popup>
       </Table.Cell>
-      <Table.Cell >
-        {/* <Table compact style={{ border: 'none' }}>
-          <Table.Body> */}
+      <Table.Cell>
         {
           groupOfTags.map(([group, tags], id) => (
             <>
-              {/* <Table.Row>
-                   <Table.Cell> */}
-              {currentGroup === group && <br />}
+              {currentGroup === group && id !== 0 && <br />}
               <OptionButton
                 text={group}
                 color={currentGroup === group && tagSet.has(group) ? 'green' : 'blue'}
@@ -114,7 +110,6 @@ function ProblemsFilter({ onUpdate, options }) {
                 }} />
               {
                 currentGroup === group && <>
-                  {/* <br /> */}
                   <Icon
                     name="hand point right outline" />
                   {tags && tags
@@ -127,12 +122,9 @@ function ProblemsFilter({ onUpdate, options }) {
                   {id !== groupOfTags.length - 1 && <br />}
                 </>
               }
-              {/* </Table.Cell>
-                </Table.Row> */}
             </>
-          ))}
-        {/* </Table.Body>
-        </Table> */}
+          ))
+        }
       </Table.Cell>
     </Table.Row>
   );
