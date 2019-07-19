@@ -13,12 +13,24 @@ function ProblemsFilter({ onUpdate, options }) {
     }
   }
 
+  const { tagGroups, tagDescription } = useFetchGoogleSheet(
+    "https://docs.google.com/a/google.com/spreadsheets/d/1mYZSziPP8-2a9lQeSjXm7FwRqilwgsL8MIHeER0BmGo/gviz/tq?gid=1856672631&tq=select%20*",
+    { tagGroups: new Map(), tagDescription: new Map() },
+    ({ cols, data }) => {
+      return {
+        tagGroups: new Map(data.map(({ Tag, Group }) => [Tag, Group])),
+        tagDescription: new Map(data.map(({ Tag, Description }) => [Tag, Description])),
+      };
+    }
+  );
+
   /**
    * The button used in the list of options.
    */
-  function OptionButton({ text, value, ...props }) {
+  function OptionButton({ text, value, source, ...props }) {
     return (
       <Button
+        title={tagDescription.has(source) && tagDescription.get(source)}
         size="mini"
         style={{ marginBottom: "2px", marginTop: "2px" }}
         onClick={() => {
@@ -27,7 +39,7 @@ function ProblemsFilter({ onUpdate, options }) {
         {...props}>
         {text || '\u00A0'}
       </Button>
-    );
+    )
   };
 
   // Function called when the filter list needs to be updated.
@@ -43,19 +55,12 @@ function ProblemsFilter({ onUpdate, options }) {
     type,
     options.filter((option) => option.type === type)]));
 
-  const tagGroups = useFetchGoogleSheet(
-    "https://docs.google.com/a/google.com/spreadsheets/d/1mYZSziPP8-2a9lQeSjXm7FwRqilwgsL8MIHeER0BmGo/gviz/tq?gid=1856672631&tq=select%20*",
-    new Map(),
-    ({ cols, data }) => {
-      return new Map(data.map(({ Tag, Group }) => [Tag, Group]));
-    }
-  );
-
   const tagSet = new Set(optionByType['tag'].map((tag) => tag.source));
 
   const MISC = 'Miscellaneous';
   const tagByGroups = optionByType['tag'] && optionByType['tag'].reduce((groups, tag) => {
     const group = tagGroups.has(tag.source) ? tagGroups.get(tag.source) : MISC;
+    if (!group) return groups;
     if (!groups[group]) groups[group] = [];
     groups[group].push(tag);
     return groups;
@@ -80,7 +85,7 @@ function ProblemsFilter({ onUpdate, options }) {
       <Table.Cell>
         Tags
         <Popup
-          position='right center'
+          position="right center"
           trigger={
             <Icon name="question circle" />
           }>
@@ -101,6 +106,7 @@ function ProblemsFilter({ onUpdate, options }) {
               {currentGroup === group && id !== 0 && <br />}
               <OptionButton
                 text={group}
+                source={group}
                 color={currentGroup === group && tagSet.has(group) ? 'green' : 'blue'}
                 onClick={() => {
                   if (currentGroup !== group)
@@ -116,6 +122,7 @@ function ProblemsFilter({ onUpdate, options }) {
                     .sort((a, b) => a.source > b.source ? 1 : -1)
                     .map((tag) => (
                       <OptionButton
+                        source={tag.source}
                         text={tag.source}
                         value={tag.value} />
                     ))}
