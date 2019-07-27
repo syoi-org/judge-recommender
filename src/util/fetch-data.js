@@ -103,7 +103,7 @@ async function fetchData(context) {
   const tagByGroups = tags.reduce((groups, tag) => {
     const group = tagGroups.has(tag.source) ? tagGroups.get(tag.source) : MISC;
     tagGroups.set(group, '');
-    tagGroups.set(tag.source, groups);
+    tagGroups.set(tag.source, group);
 
     if (!group) return groups;
     if (!groups[group]) groups[group] = [];

@@ -1,9 +1,25 @@
 import React from 'react';
 import { Icon, Label, Table } from 'semantic-ui-react';
 import JudgeIcon from './JudgeIcon';
+import {RecommenderContext} from '../context/RecommenderContext';
 
 function Problem({ problem }) {
+  const context = React.useContext(RecommenderContext);
   const ref = React.createRef();
+  const tagGroups = context.data.tagGroups;
+
+  const tagSorter = (a, b) => {
+    const first = (tag) => tagGroups.get(tag) || tag;
+    if (first(a) !== first(b))
+      return first(a) > first(b);
+    if (!tagGroups.get(a) && !tagGroups.get(b))
+      return a > b;
+    if (!tagGroups.get(a))
+      return -1;
+    if (!tagGroups.get(b))
+      return 1;
+    return a > b;
+  }
 
   return (
     <Table.Row>
@@ -28,9 +44,26 @@ function Problem({ problem }) {
               </Label>
             </Label.Group>
             <Label.Group size="mini" style={{ display: 'inline-block' }}>
-              {problem.Tags.map((tag) => (
-                <Label size="mini" color="brown" tag key={tag}>{tag}</Label>
-              ))}
+              {
+                problem.Tags
+                  .sort(tagSorter)
+                  .map((tag) => (
+                    tagGroups.get(tag)
+                    ? (
+                      <Label image size="mini" color="brown" tag key={tag}>
+                        {tagGroups.get(tag)}
+                        <Label.Detail style={{
+                          marginRight: "-13px"
+                        }}>{tag}</Label.Detail>
+                      </Label>
+                    )
+                    : (
+                      <Label color="brown" size="mini" tag key={tag}>
+                        {tag}
+                      </Label>
+                    )
+                  ))
+              }
             </Label.Group>
           </div>
         </a>
