@@ -6,7 +6,8 @@ import OptionButton from './OptionButton';
 function TagDisplay() {
   const [currentGroup, setGroup] = React.useState('');
   const context = React.useContext(RecommenderContext);
-  const groupedTags = Object.entries(context.data.groupedTags);
+  const groupedTags = Object.entries(context.data.groupedTags)
+    .sort(([u], [v]) => u > v);
   const tagSet = new Set(context.data.tags.map((tag) => tag.source));
 
   const addTag = (tag) => {

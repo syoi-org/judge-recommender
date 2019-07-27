@@ -76,9 +76,11 @@ function parseProblemList({ cols, data }) {
   });
 
   // Change the option / tag list from key-value form to sorted array.
-  const clean = (o) => Object.entries(o)
-    .sort(([a, b]) => a[0] > b[0])
+  const clean = (o) => {
+    return Object.entries(o)
+    .sort(([u], [v]) => u > v)
     .map(([key, value]) => value);
+  }
 
   tags = clean(tags);
   for (const type in options) {
