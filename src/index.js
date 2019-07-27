@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css';
-import App from './App';
+import App from './components/App';
+import { RecommenderContextProvider } from './context/RecommenderContext';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  (
+    <RecommenderContextProvider>
+      <App />
+    </RecommenderContextProvider>
+  ),
+  document.getElementById('root')
+);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Image, Icon, Label, Table } from 'semantic-ui-react';
+import { Icon, Label, Table } from 'semantic-ui-react';
 import JudgeIcon from './JudgeIcon';
 
 function Problem({ problem }) {
@@ -29,7 +29,7 @@ function Problem({ problem }) {
             </Label.Group>
             <Label.Group size="mini" style={{ display: 'inline-block' }}>
               {problem.Tags.map((tag) => (
-                <Label size="mini" color="brown" tag>{tag}</Label>
+                <Label size="mini" color="brown" tag key={tag}>{tag}</Label>
               ))}
             </Label.Group>
           </div>

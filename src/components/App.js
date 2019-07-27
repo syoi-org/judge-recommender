@@ -4,10 +4,8 @@ import {
   Image,
   Menu
 } from 'semantic-ui-react'
-import logo from './logo.png';
+import logo from '../icons/syss.png';
 import Recommender from './Recommender';
-// import logo from './logo.svg';
-// import './App.css';
 
 function App() {
   return (
