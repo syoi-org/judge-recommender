@@ -1,15 +1,15 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "036877a4e78dba649231c3a7f4c2cc1e",
+    "revision": "0b4bfc17faa64a79b8dd377048fd5a41",
     "url": "/judge-recommender/index.html"
   },
   {
-    "revision": "698844d1226e630c5c6b",
-    "url": "/judge-recommender/static/js/2.842fd2aa.chunk.js"
+    "revision": "b8718a84ed70d0bfb8af",
+    "url": "/judge-recommender/static/js/2.2a1073ca.chunk.js"
   },
   {
-    "revision": "a9fe25ff6ada1b645746",
-    "url": "/judge-recommender/static/js/main.4bc27695.chunk.js"
+    "revision": "49ad6661a2ea0b0203c0",
+    "url": "/judge-recommender/static/js/main.c73de993.chunk.js"
   },
   {
     "revision": "03609dd0f92110cc5162",
@@ -38,10 +38,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "0a3f6018aacf449381741e45cf0ff6ba",
     "url": "/judge-recommender/static/media/kattis.0a3f6018.png"
-  },
-  {
-    "revision": "2cd414b9de8080ce7d04ebbaa1ad29a9",
-    "url": "/judge-recommender/static/media/logo.2cd414b9.png"
   },
   {
     "revision": "8a31d582dab3f51575f88ba797e0f885",
