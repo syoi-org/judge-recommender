@@ -5,9 +5,9 @@ import {
   Menu
 } from 'semantic-ui-react'
 import logo from '../icons/syss.png';
-import Recommender from './Recommender';
+import { Recommender } from './Recommender';
 
-function App() {
+export function App() {
   return (
     <>
       <Menu fixed="top">
@@ -29,4 +29,3 @@ function App() {
   );
 }
 
-export default App;

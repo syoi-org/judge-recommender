@@ -1,18 +1,18 @@
 import React from 'react';
-import { Accordion, Dropdown, Icon, Table } from 'semantic-ui-react';
-import { RecommenderContext } from '../../context/RecommenderContext';
+import { Accordion, Dropdown, Icon, Table, DropdownProps } from 'semantic-ui-react';
+import { RecommenderContext, RecommenderContextProps } from '../../context/RecommenderContext';
 
-import OptionDisplay from './OptionDisplay';
-import TagDisplay from './TagDisplay';
+import { OptionDisplay } from './OptionDisplay';
+import { TagDisplay } from './TagDisplay';
 
-function ProblemsFilter() {
+export function ProblemsFilter() {
   // Local state
   const [active, setActive] = React.useState(false);
   const context = React.useContext(RecommenderContext);
-  
+
   const { filters } = context.setting;
   const { tags, groupedTags, options, keywords } = context.data;
-  
+
   const dropdownOptions = [
     ...options.difficulty,
     ...options.judge,
@@ -25,10 +25,10 @@ function ProblemsFilter() {
   const filterValues = dropdownOptions.map((option) => option.value);
 
   // Function called when the filter list needs to be updated.
-  const onFilterChange = (event, { value: filters }) => {
-    filters = filters.filter((filter) => filterValues.includes(filter));
+  const onFilterChange = (event: React.SyntheticEvent<HTMLElement, Event>, { value: filters }: DropdownProps) => {
+    const currentFilters = (filters as any[]).filter((filter) => filterValues.includes(filter));
 
-    context.setState((context) => ({
+    context.setState((context: RecommenderContextProps) => ({
       ...context,
       setting: {
         ...context.setting,
@@ -36,22 +36,23 @@ function ProblemsFilter() {
       },
       data: {
         ...context.data,
-        keywords: context.data.keywords.filter((keyword) => filters.includes(keyword.value)),
+        keywords: context.data.keywords.filter((keyword) => currentFilters.includes(keyword.value)),
       }
-    }));
+    } as RecommenderContextProps));
   };
 
-  const onSortOrderChange = (event, {value: sortOrder}) => {
+  const onSortOrderChange = (event: React.SyntheticEvent<HTMLElement, Event>, { value: sortOrder }: DropdownProps) => {
     context.setState((context) => ({
       ...context,
       setting: {
         ...context.setting,
         sortOrder
       }
-    }));
+    } as RecommenderContextProps));
   };
 
-  const onFilterAddition = (event, {value}) => {
+  const onFilterAddition = (event: React.KeyboardEvent<HTMLElement>, props: DropdownProps) => {
+    const value = props.value as string;
     context.setState((context) => ({
       ...context,
       setting: {
@@ -68,9 +69,8 @@ function ProblemsFilter() {
           type: 'keyword',
         })),
       },
-    })); 
+    }));
   };
-
 
   return (
     <>
@@ -109,7 +109,7 @@ function ProblemsFilter() {
               <OptionDisplay type="Difficulty" options={options.difficulty} />
               <OptionDisplay type="Judge" options={options.judge} />
               <OptionDisplay type="Level" options={options.level} />
-              <TagDisplay tags={groupedTags} />
+              <TagDisplay />
             </Table.Body>
           </Table>
 
@@ -129,7 +129,7 @@ function ProblemsFilter() {
                     value={context.setting.sortOrder}
                     onChange={onSortOrderChange}
                     selection
-                    />
+                  />
                 </Table.Cell>
               </Table.Row>
             </Table.Body>
@@ -139,5 +139,3 @@ function ProblemsFilter() {
     </>
   )
 }
-
-export default ProblemsFilter;

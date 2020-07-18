@@ -1,16 +1,17 @@
 import * as React from 'react';
-import {Table, Icon, Popup} from 'semantic-ui-react';
-import {RecommenderContext} from '../../context/RecommenderContext';
-import OptionButton from './OptionButton';
+import { Table, Icon, Popup } from 'semantic-ui-react';
+import { RecommenderContext } from '../../context/RecommenderContext';
+import { OptionButton } from './OptionButton';
+import { Tag } from '../../util/types';
 
-function TagDisplay() {
+export function TagDisplay() {
   const [currentGroup, setGroup] = React.useState('');
   const context = React.useContext(RecommenderContext);
   const groupedTags = Object.entries(context.data.groupedTags)
-    .sort(([u], [v]) => u > v);
+    .sort(([u], [v]) => Number(u > v));
   const tagSet = new Set(context.data.tags.map((tag) => tag.source));
 
-  const addTag = (tag) => {
+  const addTag = (tag: string) => {
     if (!context.setting.filters.includes(tag)) {
       context.setState((context) => ({
         ...context,
@@ -55,15 +56,16 @@ function TagDisplay() {
                   if (currentGroup !== group)
                     setGroup(group);
                   else if (tagSet.has(group))
-                    addTag(tagSet.has(group) && `tag:${group}`);
-                }} />
+                    addTag(`tag:${group}`);
+                }}
+                value={null} />
               {
                 currentGroup === group && <>
                   <Icon
                     name="hand point right outline" />
-                  {tags && tags
-                    .sort((a, b) => a.source > b.source ? 1 : -1)
-                    .map((tag) => (
+                  {tags && (tags as Tag[])
+                    .sort((a: Tag, b: Tag) => a.source > b.source ? 1 : -1)
+                    .map((tag: Tag) => (
                       <OptionButton
                         key={tag.source}
                         source={tag.source}
@@ -80,6 +82,3 @@ function TagDisplay() {
     </Table.Row>
   );
 }
-
-
-export default TagDisplay;

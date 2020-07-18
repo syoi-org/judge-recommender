@@ -2,10 +2,17 @@ import * as React from 'react';
 import { RecommenderContext } from '../../context/RecommenderContext';
 import { Button } from 'semantic-ui-react';
 
+interface Props {
+  text: string;
+  value: any;
+  source: any;
+  [key: string]: any;
+}
+
 /**
  * The button used in the list of options.
  */
-function OptionButton({ text, value, source, ...props }) {
+export function OptionButton({ text, value, source, ...props }: Props) {
   const context = React.useContext(RecommenderContext);
   const { filters } = context.setting;
   const { tagDescription } = context.data;
@@ -34,5 +41,3 @@ function OptionButton({ text, value, source, ...props }) {
     </Button>
   )
 };
-
-export default OptionButton;

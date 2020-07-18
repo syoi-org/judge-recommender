@@ -1,35 +1,36 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
-import Problem from './Problem';
-import {RecommenderContext} from '../context/RecommenderContext';
+import { ProblemDisplay } from './ProblemDisplay';
+import { RecommenderContext } from '../context/RecommenderContext';
+import { Problem, FilterOption, SortOrder } from '../util/types';
 
 const level = ['Beginner', 'Intermediate', 'Advanced', ''];
-const difficulty = [1, 2, 3, 4, 5, 0];
+const difficulty = ["1", "2", "3", "4", "5", "0"];
 
-const problemSorter = {
-  'default': (a, b) => {
+const problemSorter: {[key: string]: ((a: Problem, b: Problem) => number)} = {
+  'default': (a: Problem, b: Problem) => {
     if (a.Judge !== b.Judge)
-      return a.Judge > b.Judge;
+      return Number(a.Judge > b.Judge);
     else
-      return a.ID > b.ID;
+      return Number(a.ID > b.ID);
   },
-  'level-difficulty': (a, b) => {
+  'level-difficulty': (a: Problem, b: Problem) => {
     if (level.indexOf(a.Level) !== level.indexOf(b.Level))
-      return level.indexOf(a.Level) > level.indexOf(b.Level);
+      return Number(level.indexOf(a.Level) > level.indexOf(b.Level));
     else if (difficulty.indexOf(a.Difficulty) !== difficulty.indexOf(b.Difficulty))
-      return difficulty.indexOf(a.Difficulty) > difficulty.indexOf(b.Difficulty);
+      return Number(difficulty.indexOf(a.Difficulty) > difficulty.indexOf(b.Difficulty));
     else
       return problemSorter.default(a, b);
   }
 }
 
-function ProblemsDisplay() {
+export const ProblemsDisplay = () => {
   const context = React.useContext(RecommenderContext);
-  const {filters} = context.setting;
+  const { filters } = context.setting;
 
   const problems = context.data.problems
     .filter((problem) => {
-      const options = problem.FilterOptions.map((option) => option.value);
+      const options = problem.FilterOptions.map((option: FilterOption) => option.value);
       return filters.every((filter) => (
         filter.startsWith('keyword:')
           ? problem.Problem.toLowerCase().indexOf(filter.replace('keyword:', '').toLowerCase()) !== -1
@@ -39,7 +40,7 @@ function ProblemsDisplay() {
     .sort(problemSorter[context.setting.sortOrder]);
 
   const content = problems.map((problem, id) => (
-    <Problem problem={problem} key={id} />
+    <ProblemDisplay problem={problem} key={id} />
   ))
 
   return (
@@ -56,5 +57,3 @@ function ProblemsDisplay() {
     </Table>
   );
 }
-
-export default ProblemsDisplay;

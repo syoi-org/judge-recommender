@@ -1,23 +1,27 @@
 import * as React from 'react';
-import OptionButton from './OptionButton';
+import { OptionButton } from './OptionButton';
 import { Table } from 'semantic-ui-react';
 
-function OptionDisplay({ type, options }) {
+interface Props {
+  type: string;
+  options: any[];
+}
+
+export function OptionDisplay({ type, options }: Props) {
   return (
     <Table.Row>
       <Table.Cell>
         {type}
       </Table.Cell>
       <Table.Cell>
-        {options.map((option) => (
+        {options.map((option: any) => (
           <OptionButton
             key={option.source}
             text={option.source}
+            source={option.source}
             value={option.value} />
         ))}
       </Table.Cell>
     </Table.Row>
   );
 }
-
-export default OptionDisplay;

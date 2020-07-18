@@ -1,10 +1,12 @@
-import * as axios from 'axios';
-import sheetToEntry from './sheet-to-entry';
+import axios from 'axios';
+import { sheetToEntry } from './sheet-to-entry';
+import { RecommenderContextState } from '../context/RecommenderContext';
+import { FilterOption, Tag } from './types';
 
 const PROBLEMS_URL = 'https://docs.google.com/a/google.com/spreadsheets/d/1mYZSziPP8-2a9lQeSjXm7FwRqilwgsL8MIHeER0BmGo/gviz/tq?tq=select%20*';
 const TAGS_URL = 'https://docs.google.com/a/google.com/spreadsheets/d/1mYZSziPP8-2a9lQeSjXm7FwRqilwgsL8MIHeER0BmGo/gviz/tq?gid=1856672631&tq=select%20*';
 
-async function fetchGoogleSheet(url) {
+async function fetchGoogleSheet(url: string) {
   // A variable used to store the data returned by Google API.
   let source = null;
 
@@ -13,7 +15,7 @@ async function fetchGoogleSheet(url) {
   const google = {
     visualization: {
       Query: {
-        setResponse: (response) => {
+        setResponse: (response: any) => {
           source = response;
         }
       }
@@ -27,19 +29,23 @@ async function fetchGoogleSheet(url) {
   return entries;
 }
 
-function parseProblemList({ cols, data }) {
+function parseProblemList({ cols, data }: { cols: any[], data: any[] }): {
+  problems: any[],
+  tags: Tag[],
+  options: { [key: string]: FilterOption[] }
+} {
   const options = {
-    'judge': {},
-    'difficulty': {},
-    'level': {},
+    'judge': {} as { [key: string]: FilterOption },
+    'difficulty': {} as { [key: string]: FilterOption },
+    'level': {} as { [key: string]: FilterOption },
   };
 
-  let tags = {};
+  let tags = {} as { [key: string]: FilterOption };
 
   const problems = data.map((problem) => {
     problem.Tags = problem.Tags.split(",")
-      .map((tag) => tag.trim())
-      .filter((tag) => tag.length !== 0);
+      .map((tag: string) => tag.trim())
+      .filter((tag: string) => tag.length !== 0);
 
     problem.FilterOptions = [
       options.judge[problem.Judge] = {
@@ -63,7 +69,7 @@ function parseProblemList({ cols, data }) {
         value: `level:${problem.Level}`,
         text: `Level: ${problem.Level}`
       },
-      ...problem.Tags.map((tag) => (tags[tag] = {
+      ...problem.Tags.map((tag: string) => (tags[tag] = {
         type: 'tag',
         source: tag,
         key: `tag:${tag}`,
@@ -76,31 +82,31 @@ function parseProblemList({ cols, data }) {
   });
 
   // Change the option / tag list from key-value form to sorted array.
-  const clean = (o) => {
+  const clean = <T extends any>(o: { [key: string]: T }): T[] => {
     return Object.entries(o)
-    .sort(([u], [v]) => u > v)
-    .map(([key, value]) => value);
+      .sort(([u], [v]) => Number(u > v))
+      .map(([key, value]) => value);
   }
 
-  tags = clean(tags);
-  for (const type in options) {
-    options[type] = clean(options[type]);
-  }
-
-  return { problems, tags, options };
+  console.log(options,Object.fromEntries(Object.entries(options).map(([key, value]) => clean(value))));
+  return ({
+    problems,
+    tags: clean(tags) as Tag[],
+    options: Object.fromEntries(Object.entries(options).map(([key, value]) => [key, clean(value)])),
+  });
 }
 
-async function fetchData(context) {
+export async function fetchData(context: RecommenderContextState) {
   const { problems, tags, options } = await fetchGoogleSheet(PROBLEMS_URL)
     .then(parseProblemList);
 
-  const { data: tagsSheet } = await fetchGoogleSheet(TAGS_URL);
+  const tagsSheet = (await fetchGoogleSheet(TAGS_URL)).data as any[];
   const tagGroups = new Map(tagsSheet.map(({ Tag, Group }) => [Tag, Group]));
   const tagDescription = new Map(tagsSheet.map(({ Tag, Description }) => [Tag, Description]));
 
   // Handle the tag group relationships
   const MISC = 'Miscellaneous';
-  const tagByGroups = tags.reduce((groups, tag) => {
+  const tagByGroups = tags.reduce((groups: { [key: string]: Tag[] }, tag: Tag) => {
     const group = tagGroups.has(tag.source) ? tagGroups.get(tag.source) : MISC;
     tagGroups.set(group, '');
     tagGroups.set(tag.source, group);
@@ -109,20 +115,20 @@ async function fetchData(context) {
     if (!groups[group]) groups[group] = [];
     groups[group].push(tag);
     return groups;
-  }, {});
+  }, {} as { [key: string]: Tag[] });
 
   const sortOrders = [
-    {key: 'default', value: 'default', text: 'Default'},
-    {key: 'level-difficulty', value: 'level-difficulty', text: 'Level / Difficulty'},
+    { key: 'default', value: 'default', text: 'Default' },
+    { key: 'level-difficulty', value: 'level-difficulty', text: 'Level / Difficulty' },
   ];
 
   // Remove all group names from MISC list.
   tagByGroups[MISC] = tagByGroups[MISC] &&
-    tagByGroups[MISC].filter((tag) => !(tag.source in tagByGroups));
+    tagByGroups[MISC].filter((tag :Tag) => !(tag.source in tagByGroups));
 
   // Set the group back to the tags (* miscellaneous)
   for (const [group, tags] of Object.entries(tagByGroups)) {
-    for (const tag of tags) {
+    for (const tag of tags as (Tag[])) {
       tagGroups.set(tag.source, group);
     }
   }
@@ -146,5 +152,3 @@ async function fetchData(context) {
     },
   }));
 }
-
-export default fetchData;
