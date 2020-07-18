@@ -11,7 +11,7 @@ export function ProblemsFilter() {
   const context = React.useContext(RecommenderContext);
 
   const { filters } = context.setting;
-  const { tags, groupedTags, options, keywords } = context.data;
+  const { tags, options, keywords } = context.data;
 
   const dropdownOptions = [
     ...options.difficulty,

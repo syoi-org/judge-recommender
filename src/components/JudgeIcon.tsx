@@ -14,7 +14,7 @@ import spojIcon from '../icons/spoj.png';
 import syssIcon from '../icons/syss.png';
 import kattisIcon from '../icons/kattis.png';
 
-const icons: { [JudgeName: string]: string } = {
+const icons: { [key: string]: string } = {
   'HKOJ': hkojIcon,
   'CF': cfIcon,
   'AOJ': aojIcon,

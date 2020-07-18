@@ -21,7 +21,7 @@ export interface Problem {
     Problem: string;
     Link: string;
     Level: string;
-    Difficulty: string;
+    Difficulty: number;
     Tags: string[];
     FilterOptions: FilterOption[];
 }

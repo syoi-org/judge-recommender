@@ -1,8 +1,8 @@
 import React from 'react';
 import { Icon, Label, Table } from 'semantic-ui-react';
-import {JudgeIcon} from './JudgeIcon';
+import { JudgeIcon } from './JudgeIcon';
 import { RecommenderContext } from '../context/RecommenderContext';
-import { Problem, Tag } from '../util/types';
+import { Problem } from '../util/types';
 
 export function ProblemDisplay({ problem }: { problem: Problem }) {
   const context = React.useContext(RecommenderContext);

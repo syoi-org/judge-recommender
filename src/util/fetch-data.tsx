@@ -88,7 +88,6 @@ function parseProblemList({ cols, data }: { cols: any[], data: any[] }): {
       .map(([key, value]) => value);
   }
 
-  console.log(options,Object.fromEntries(Object.entries(options).map(([key, value]) => clean(value))));
   return ({
     problems,
     tags: clean(tags) as Tag[],

@@ -2,12 +2,12 @@ import React from 'react';
 import { Table } from 'semantic-ui-react';
 import { ProblemDisplay } from './ProblemDisplay';
 import { RecommenderContext } from '../context/RecommenderContext';
-import { Problem, FilterOption, SortOrder } from '../util/types';
+import { Problem, FilterOption } from '../util/types';
 
 const level = ['Beginner', 'Intermediate', 'Advanced', ''];
-const difficulty = ["1", "2", "3", "4", "5", "0"];
+const difficulty = [1, 2, 3, 4, 5, 0];
 
-const problemSorter: {[key: string]: ((a: Problem, b: Problem) => number)} = {
+const problemSorter: { [key: string]: ((a: Problem, b: Problem) => number) } = {
   'default': (a: Problem, b: Problem) => {
     if (a.Judge !== b.Judge)
       return Number(a.Judge > b.Judge);
@@ -39,10 +39,6 @@ export const ProblemsDisplay = () => {
     })
     .sort(problemSorter[context.setting.sortOrder]);
 
-  const content = problems.map((problem, id) => (
-    <ProblemDisplay problem={problem} key={id} />
-  ))
-
   return (
     <Table celled selectable>
       <Table.Body>
@@ -52,7 +48,9 @@ export const ProblemsDisplay = () => {
             of {context.data.problems.length} problem{context.data.problems.length !== 1 && 's'}.
           </Table.Cell>
         </Table.Row>
-        {content}
+        {problems.map((problem, id) => (
+          <ProblemDisplay problem={problem} key={id} />
+        ))}
       </Table.Body>
     </Table>
   );
