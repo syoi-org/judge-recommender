@@ -1,19 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7f1f0b06b8ca22688298f36d9102ccb0",
+    "revision": "3d4ecad502630bc3dfdf7c376d9f554e",
     "url": "/judge-recommender/index.html"
   },
   {
-    "revision": "accb258a81139e753dc7",
-    "url": "/judge-recommender/static/js/2.70614870.chunk.js"
+    "revision": "e24bbac38c9e2634061a",
+    "url": "/judge-recommender/static/js/2.5982231b.chunk.js"
   },
   {
-    "revision": "0301987e30706e31327e",
-    "url": "/judge-recommender/static/js/main.3c452d10.chunk.js"
+    "revision": "2089965cc3e0fbb1dda2d650d8277df4",
+    "url": "/judge-recommender/static/js/2.5982231b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "03609dd0f92110cc5162",
-    "url": "/judge-recommender/static/js/runtime~main.98973b44.js"
+    "revision": "bb7362ea3bf15862adca",
+    "url": "/judge-recommender/static/js/main.09601d81.chunk.js"
+  },
+  {
+    "revision": "9c18b31feaa68d987a3e",
+    "url": "/judge-recommender/static/js/runtime-main.06cb003c.js"
   },
   {
     "revision": "12c764575a996fa26c93f16140452142",
